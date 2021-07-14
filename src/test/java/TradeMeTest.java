@@ -37,27 +37,26 @@ public class TradeMeTest {
     private void test() {
         System.out.println("This is a test");
     }
+
+    @Test
+    private void getListingsNumber() {
+        List<WebElement> listings_List = driver.findElements(By.className("supergrid-listing"));
+        System.out.println(listings_List.size());
+    }
+
+    @Test
+    private void getPrice() {
+        List<WebElement> listings_List = driver.findElements(By.className("supergrid-listing"));
+        System.out.println(listings_List.get(0).getAttribute("class"));
+    }
+
+    @Test
+    private void getTitles() {
+        List<WebElement> listings_List = driver.findElements(By.className("supergrid-listing"));
+
+        for (WebElement element: listings_List) {
+            String title = element.getText();
+            System.out.println(title);
+        }
+    }
 }
-//
-//    @Test
-//    private void getListingsNumber() {
-//        List<WebElement> listings_List = driver.findElements(By.className("supergrid-listing"));
-//        System.out.println(listings_List.stream().count());
-//    }
-//
-//    @Test
-//    private void getPrice() {
-//        List<WebElement> listings_List = driver.findElements(By.className("supergrid-listing"));
-//        System.out.println(listings_List.get(0).getAttribute("class"));
-//    }
-//
-//    @Test
-//    private void getTitles() {
-//        List<WebElement> listings_List = driver.findElements(By.className("supergrid-listing"));
-//
-//        for (WebElement element: listings_List) {
-//            String title = element.getText();
-//            System.out.println(title);
-//        }
-//    }
-//}
