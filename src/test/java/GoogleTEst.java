@@ -53,4 +53,12 @@ public class GoogleTEst {
 
 
     }
+
+    @Test
+    public void testTotalCount() {
+        SearchResultsPage searchResultsPage = homePage.search("gold");
+        String totalCount = searchResultsPage.getTotalCount();
+
+        System.out.println(totalCount);
+    }
 }

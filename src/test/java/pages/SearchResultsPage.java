@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -19,14 +20,21 @@ public class SearchResultsPage {
 
     private WebDriver driver;
 
+    @FindBy(id="result-stats")
+    private WebElement totalCount;
+
+    private void waitForLoad() {
+        WebDriverWait wait = new WebDriverWait(this.driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("footcnt")));
+    }
+
     public SearchResultsPage(WebDriver driver) {
         this.driver = driver;
 
     }
 
     public List<WebElement> getResults() {
-        WebDriverWait wait = new WebDriverWait(this.driver, 10);
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("footcnt")));
+        waitForLoad();
 
         List<WebElement> results_List = this.driver.findElements(By.tagName("h3"));
 
@@ -37,4 +45,9 @@ public class SearchResultsPage {
         return(results_List);
     }
 
+    public String getTotalCount() {
+        waitForLoad();
+
+        return(totalCount.getText());
+    }
 }
