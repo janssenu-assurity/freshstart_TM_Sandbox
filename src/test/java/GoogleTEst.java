@@ -5,6 +5,11 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.HomePage;
+import pages.SearchResultsPage;
 
 import java.util.List;
 
@@ -14,6 +19,7 @@ public class GoogleTEst {
 
 
     private WebDriver driver;
+    private HomePage homePage;
 
     @BeforeAll
     public static void setupDriver() {
@@ -23,7 +29,8 @@ public class GoogleTEst {
     @BeforeEach
     public void openBrowser() {
         driver = new ChromeDriver();
-        driver.get("https://www.tmsandbox.co.nz");
+        driver.get("https://www.google.com");
+        homePage = new HomePage(driver);
     }
 
     @AfterEach
@@ -39,18 +46,11 @@ public class GoogleTEst {
 
     @Test
     public void testGold() throws Exception {
-        WebElement queryBox = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div[1]/div[1]/div[2]/div/div/form/div[1]/div/div[1]/input[1]"));
-        WebElement submitButton = driver.findElement(By.cssSelector("#generalSearch > div.field.field-right"));
-        queryBox.sendKeys("gold");
-        submitButton.click();
+        SearchResultsPage searchResultsPage = homePage.search("gold");
+        List<WebElement> results_List = searchResultsPage.getResults();
 
-        Thread.sleep(20000);
+        System.out.println(results_List);
 
-        List<WebElement> link_List = driver.findElements(By.className("supergrid-listing"));
-        for (WebElement element: link_List) {
-            String title = element.getText();
-            System.out.println(title);
-            
-        }
+
     }
 }
